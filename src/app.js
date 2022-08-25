@@ -1,5 +1,6 @@
 // Imports
 import express from 'express';
+import cors from 'cors';
 
 // Global Variables
 const users = [];
@@ -8,6 +9,7 @@ const tweets = [];
 // Create server
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // POST /sign-up
 app.post('/sign-up', (req, res) => {
@@ -38,7 +40,7 @@ app.get('/tweets', (req, res) => {
   const lastTweetsWithAvatar = lastTweets.map((tweet) => {
     const avatar = users.find((user) => {
       return user.username === tweet.username;
-    }).avatar;
+    })?.avatar;
     return { ...tweet, avatar: avatar };
   });
 
@@ -49,7 +51,16 @@ app.get('/tweets', (req, res) => {
 app.get('/tweets/:username', (req, res) => {
   const username = req.params.username;
   const userTweets = tweets.filter((tweet) => tweet.username === username);
-  res.send(userTweets);
+
+  const avatar = users.find((user) => {
+    return user.username === username;
+  })?.avatar;
+
+  const userTweetsWithAvatar = userTweets.map((tweet) => {
+    return { ...tweet, avatar: avatar };
+  });
+
+  res.send(userTweetsWithAvatar);
 });
 
 // Initialize server
