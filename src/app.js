@@ -15,6 +15,12 @@ app.post('/sign-up', (req, res) => {
   res.send('OK');
 });
 
+// POST /tweets
+app.post('/tweets', (req, res) => {
+  tweets.push(req.body);
+  res.send('OK');
+});
+
 // Initialize server
 app.listen(5000, () => {
   console.log('Server listening on port 5000');
