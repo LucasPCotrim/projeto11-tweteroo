@@ -1,12 +1,21 @@
+// Imports
 import express from 'express';
 
-const server = express();
+// Global Variables
+const users = [];
+const tweets = [];
 
-server.get('/', (req, res) => {
-  console.log('Chegou');
-  res.send('Hello World');
+// Create server
+const app = express();
+app.use(express.json());
+
+// POST /sign-up
+app.post('/sign-up', (req, res) => {
+  users.push(req.body);
+  res.send('OK');
 });
 
-server.listen(5000, () => {
+// Initialize server
+app.listen(5000, () => {
   console.log('Server listening on port 5000');
 });
