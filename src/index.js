@@ -14,23 +14,23 @@ app.use(cors());
 // POST /sign-up
 app.post('/sign-up', (req, res) => {
   const { username, avatar } = req.body;
-  if (username === '' || avatar === '') {
+  if (username === undefined || avatar === undefined || username === '' || avatar === '') {
     res.status(400).send('Todos os campos são obrigatórios!');
-  } else {
-    users.push(req.body);
-    res.status(201).send('OK');
+    return;
   }
+  users.push({ username, avatar });
+  res.status(201).send('OK');
 });
 
 // POST /tweets
 app.post('/tweets', (req, res) => {
   const { username, tweet } = req.body;
-  if (username === '' || tweet === '') {
+  if (username === undefined || tweet === undefined || username === '' || tweet === '') {
     res.status(400).send('Todos os campos são obrigatórios!');
-  } else {
-    tweets.push(req.body);
-    res.status(201).send('OK');
+    return;
   }
+  tweets.push({ username, tweet });
+  res.status(201).send('OK');
 });
 
 // GET /tweets
