@@ -15,7 +15,7 @@ app.use(cors());
 app.post('/sign-up', (req, res) => {
   const { username, avatar } = req.body;
   if (username === undefined || avatar === undefined || username === '' || avatar === '') {
-    res.status(400).send('Todos os campos são obrigatórios!');
+    res.status(400).send({ erro: 'Todos os campos são obrigatórios!' });
     return;
   }
   users.push({ username, avatar });
@@ -26,7 +26,7 @@ app.post('/sign-up', (req, res) => {
 app.post('/tweets', (req, res) => {
   const { username, tweet } = req.body;
   if (username === undefined || tweet === undefined || username === '' || tweet === '') {
-    res.status(400).send('Todos os campos são obrigatórios!');
+    res.status(400).send({ erro: 'Todos os campos são obrigatórios!' });
     return;
   }
   tweets.push({ username, tweet });
@@ -44,7 +44,7 @@ app.get('/tweets', (req, res) => {
     return { ...tweet, avatar: avatar };
   });
 
-  res.send(lastTweetsWithAvatar);
+  res.status(201).send(lastTweetsWithAvatar);
 });
 
 // GET /tweets/USERNAME
@@ -60,7 +60,7 @@ app.get('/tweets/:username', (req, res) => {
     return { ...tweet, avatar: avatar };
   });
 
-  res.send(userTweetsWithAvatar);
+  res.status(201).send(userTweetsWithAvatar);
 });
 
 // Initialize server
