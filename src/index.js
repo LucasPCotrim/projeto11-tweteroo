@@ -19,7 +19,7 @@ app.post('/sign-up', (req, res) => {
     return;
   }
   users.push({ username, avatar });
-  res.status(201).send('OK');
+  res.status(201).send({ message: 'OK' });
 });
 
 // POST /tweets
@@ -30,7 +30,7 @@ app.post('/tweets', (req, res) => {
     return;
   }
   tweets.push({ username, tweet });
-  res.status(201).send('OK');
+  res.status(201).send({ message: 'OK' });
 });
 
 // GET /tweets
@@ -44,7 +44,7 @@ app.get('/tweets', (req, res) => {
     return { ...tweet, avatar: avatar };
   });
 
-  res.status(201).send(lastTweetsWithAvatar);
+  res.status(200).send(lastTweetsWithAvatar);
 });
 
 // GET /tweets/USERNAME
@@ -60,7 +60,7 @@ app.get('/tweets/:username', (req, res) => {
     return { ...tweet, avatar: avatar };
   });
 
-  res.status(201).send(userTweetsWithAvatar);
+  res.status(200).send(userTweetsWithAvatar);
 });
 
 // Initialize server
